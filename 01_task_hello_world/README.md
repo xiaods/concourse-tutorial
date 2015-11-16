@@ -113,7 +113,7 @@ inputs:
 
 This is saying:
 
-1.	I want to receive an input folder called `01_task_hello_world`. Given that we are running the task directly from the `fly` CLI, and we're running it from our host machine inside the `01_task_hello_world` folder, then the current host machine folder will be uploaded to Concourse and its content.
+1.	I want to receive an input folder called `01_task_hello_world`. Given that we are running the task directly from the `fly` CLI, and we're running it from our host machine inside the `01_task_hello_world` folder, then the contents of the current host machine folder will be uploaded to Concourse.
 2.	I want its contents to be placed in the folder `.` (that is, the root folder of the task when its running)
 
 _A side note: If no `path` is specified for an input, then the contents of the input will be placed into a folder at `./<input_name>`, where input_name is the `name` of the input._
