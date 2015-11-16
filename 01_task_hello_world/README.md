@@ -69,7 +69,7 @@ running uname -a
 Linux 5prpv3fp5op 3.19.0-30-generic #33~14.04.1-Ubuntu SMP Tue Sep 22 09:27:00 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
 succeeded
 ```
-##Put It In A Script
+###Put It In A Script
 
 A common pattern is for Concourse tasks to `run:` wrapper shell scripts, rather than directly invoking commands. The `task_show_uname.yml` task in the 01_task_hello_world directory shows how to do this:
 
