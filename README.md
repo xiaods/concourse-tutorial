@@ -40,7 +40,6 @@ First, alias it with a name `tutorial` (this name is used by all the tutorial wr
 
 ```
 fly --target tutorial login  --concourse-url http://192.168.100.4:8080 sync
-
 ```
 
 You can now see this saved target Concourse API in a local file:
@@ -77,8 +76,7 @@ fly -t tutorial execute -c task_hello_world.yml
 The output starts with
 
 ```
-Connecting to 192.168.100.4:8080 (192.168.100.4:8080)
--                    100% |*******************************| 10240   0:00:00 ETA
+executing build 1
 initializing with docker:///busybox
 ```
 
@@ -107,7 +105,9 @@ hello world
 succeeded
 ```
 
-Try changing the `image:` and the `run:` and run a different task:
+By changing the values for `image:` and `run:`, we can have
+concourse run a different task. For convenience, a task file with
+these changes is provided for you in task_ubuntu_uname.yml:
 
 ```yaml
 ---
@@ -120,12 +120,10 @@ run:
   args: [-a]
 ```
 
-This task file is provided for convenience:
-
+Now we can execute this new task on the pipeline:
 ```
 $ fly -t tutorial execute -c task_ubuntu_uname.yml
-Connecting to 192.168.100.4:8080 (192.168.100.4:8080)
--                    100% |*******************************| 10240   0:00:00 ETA
+executing build 2
 initializing with docker:///ubuntu#14.04
 running uname -a
 Linux mjgia714efl 3.13.0-49-generic #83-Ubuntu SMP Fri Apr 10 20:11:33 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
