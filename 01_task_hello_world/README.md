@@ -117,7 +117,7 @@ Given the list of `inputs`, we now know that the `task_show_uname.sh` script (wh
 run:
   path: ./task_show_uname.sh
 ```
-Now we can have fly execute `task_show_uname.yml`: 
+Now we can have `fly` execute `task_show_uname.yml`: 
 ```
 $ fly -t tutorial execute -c task_show_uname.yml
 executing build 3
@@ -129,6 +129,6 @@ running ./task_show_uname.sh
 Linux 5prpv3fp5or 3.19.0-30-generic #33~14.04.1-Ubuntu SMP Tue Sep 22 09:27:00 UTC 2015 x86_64 GNU/Linux
 succeeded
 ```
-In the output above, you can see the line which reads `running ./task_show_uname.sh`. This shows that the `task_show_uname.yml` task delegated to a wrapper script to perform the desired task, which in turn was to call the `uname` command.
+In the output above, you can see the line which reads `running ./task_show_uname.sh`. This shows that the `task_show_uname.yml` task delegated to a wrapper script, `task_show_uname.sh`, to perform the desired task, which in turn was to call the `uname` command.
 
 
