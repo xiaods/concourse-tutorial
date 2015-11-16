@@ -107,7 +107,7 @@ succeeded
 
 By changing the values for `image:` and `run:`, we can have
 concourse run a different task. For convenience, a task file with
-these changes is provided for you in task_ubuntu_uname.yml:
+these changes is provided for you in `task_ubuntu_uname.yml`:
 
 ```yaml
 ---
@@ -126,17 +126,13 @@ $ fly -t tutorial execute -c task_ubuntu_uname.yml
 executing build 2
 initializing with docker:///ubuntu#14.04
 running uname -a
-Linux mjgia714efl 3.13.0-49-generic #83-Ubuntu SMP Fri Apr 10 20:11:33 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
+Linux 5prpv3fp5op 3.19.0-30-generic #33~14.04.1-Ubuntu SMP Tue Sep 22 09:27:00 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
 succeeded
 ```
 
-A common pattern is for Concourse tasks to `run:` wrapper shell scripts, rather than directly invoking commands.
+A common pattern is for Concourse tasks to `run:` wrapper shell scripts, rather than directly invoking commands. When using wrapper scripts like this and as you build up into complex pipelines, __you will appreciate giving your task files and wrapper shell scripts the same base name__.
 
-As your tasks and wrapper scripts build up into complex pipelines you will appreciate the following pattern:
-
--	Give your task files and wrapper shell scripts the same base name
-
-In the `01_task_hello_world` folder you can see two files:
+Following this pattern, in the `01_task_hello_world` folder you will find these two files:
 
 -	`task_show_uname.yml`
 -	`task_show_uname.sh`
@@ -145,11 +141,13 @@ When you execute a task file directly via `fly`, it will upload the current fold
 
 ```
 $ fly -t tutorial execute -c task_show_uname.yml
-Connecting to 192.168.100.4:8080 (192.168.100.4:8080)
--                    100% |*******************************| 10240   0:00:00 ETA
+executing build 3
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 10240    0 10240    0     0  2780k      0 --:--:-- --:--:-- --:--:-- 3333k
 initializing with docker:///busybox
 running ./task_show_uname.sh
-Linux mjgia714eg3 3.13.0-49-generic #83-Ubuntu SMP Fri Apr 10 20:11:33 UTC 2015 x86_64 GNU/Linux
+Linux 5prpv3fp5or 3.19.0-30-generic #33~14.04.1-Ubuntu SMP Tue Sep 22 09:27:00 UTC 2015 x86_64 GNU/Linux
 succeeded
 ```
 
@@ -169,15 +167,9 @@ run:
   path: ./task_show_uname.sh
 ```
 
-The new concept above is `inputs:`.
+The new concept above is `inputs:`. 
 
-In order for a task to run a wrapper script, it must be given access to the wrapper script. In order for a task to process data files, it must be given access to those data files.
-
-In Concourse these are `inputs` to a task.
-
-Given that we are running the task directly from the `fly` CLI, and we're running it from our host machine inside the `01_task_hello_world` folder, then the current host machine folder will be uploaded to Concourse and made available as an input called `01_task_hello_world`.
-
-Later when we look at Jobs with inputs, tasks and outputs we'll return to passing `inputs` into tasks within a Job.
+In order for a task to run a wrapper script, it must be given access to the wrapper script. In order for a task to process data files, it must be given access to those data files. In Concourse these are referred to as `inputs` to a task.
 
 Consider the `inputs:` snippet above:
 
@@ -189,14 +181,14 @@ inputs:
 
 This is saying:
 
-1.	I want to receive an input folder called `01_task_hello_world`
-2.	I want it to be placed in the folder `.` (that is, the root folder of the task when its running)
+1.	I want to receive an input folder called `01_task_hello_world`. Given that we are running the task directly from the `fly` CLI, and we're running it from our host machine inside the `01_task_hello_world` folder, then the current host machine folder will be uploaded to Concourse and its content.
+2.	I want its contents to be placed in the folder `.` (that is, the root folder of the task when its running)
 
-By default, without `path:` an input will be placed in a folder with the same name as the input itself.
+_A side note: If no `path` is specified for an input, then the contents of the input will be placed into a folder at `./<input_name>`, where input_name is the `name` of the input._
 
-Given the list of `inputs`, we now know that the `task_show_uname.sh` script (which is in the same folder) will be available in the root folder of the running task.
+Later when we look at Jobs with inputs, tasks and outputs we'll return to passing `inputs` into tasks within a Job.
 
-This allows us to invoke it:
+Given the list of `inputs`, we now know that the `task_show_uname.sh` script (which is in the same folder) will be available in the root folder of the running task. This allows us to invoke it at this known location:
 
 ```yaml
 run:
