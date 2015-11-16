@@ -13,7 +13,9 @@ Vagrant.configure(2) do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "concourse/lite"
-  #config.vm.box_version = "0.45.0"
+  
+  #This guide was written with the following box version in use.
+  #config.vm.box_version = "0.67.0" 
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
