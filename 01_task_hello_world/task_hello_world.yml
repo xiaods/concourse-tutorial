@@ -5,4 +5,4 @@ image: docker:///busybox
 
 run:
   path: echo
-  args: [hello world]
+  args: ['Hello,', 'World']
