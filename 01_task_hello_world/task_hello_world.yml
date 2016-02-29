@@ -1,7 +1,10 @@
 ---
 platform: linux
 
-image: docker:///busybox
+image_resource:
+  type: docker-image
+  source:
+    repository: index.alauda.cn/library/busybox
 
 run:
   path: echo
