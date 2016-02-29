@@ -4,8 +4,8 @@ platform: linux
  # image: docker:///busybox
 image_resource:
   type: docker-image
-    source:
-        repository: index.alauda.cn/library/busybox
+  source:
+    repository: index.alauda.cn/library/busybox
 
 inputs:
 - name: resource-tutorial
